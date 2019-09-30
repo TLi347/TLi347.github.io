@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-    <id>https://github.com/TLi347/TLi347.github.io</id>
+    <id>https://TLi347.github.io</id>
     <title>TLi347</title>
-    <updated>2019-09-30T14:11:25.978Z</updated>
+    <updated>2019-09-30T14:23:07.141Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
-    <link rel="alternate" href="https://github.com/TLi347/TLi347.github.io"/>
-    <link rel="self" href="https://github.com/TLi347/TLi347.github.io/atom.xml"/>
+    <link rel="alternate" href="https://TLi347.github.io"/>
+    <link rel="self" href="https://TLi347.github.io/atom.xml"/>
     <subtitle>常常更新一下，有益大脑健康</subtitle>
-    <logo>https://github.com/TLi347/TLi347.github.io/images/avatar.png</logo>
-    <icon>https://github.com/TLi347/TLi347.github.io/favicon.ico</icon>
+    <logo>https://TLi347.github.io/images/avatar.png</logo>
+    <icon>https://TLi347.github.io/favicon.ico</icon>
     <rights>All rights reserved 2019, TLi347</rights>
     <entry>
         <title type="html"><![CDATA[Hello Gridea]]></title>
-        <id>https://github.com/TLi347/TLi347.github.io/post/hello-gridea</id>
-        <link href="https://github.com/TLi347/TLi347.github.io/post/hello-gridea">
+        <id>https://TLi347.github.io/post/hello-gridea</id>
+        <link href="https://TLi347.github.io/post/hello-gridea">
         </link>
         <updated>2018-12-11T16:00:00.000Z</updated>
         <summary type="html"><![CDATA[<p>👏  欢迎使用 <strong>Gridea</strong> ！<br>
