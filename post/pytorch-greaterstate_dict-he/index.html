@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" >
 
-<title>标签列表 | TLi347</title>
+<title>pytorch-&gt;state_dict和 | TLi347</title>
 <meta name="description" content="I&#39;m a blog">
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -91,12 +91,37 @@
 
       <div class="main-container">
         <div class="content-container" data-aos="fade-up">
-          <h2 class="tag-list-title">标签列表</h2>
-          <div class="tags-container">
+          <div class="post-detail">
+            <h2 class="post-title">pytorch-&gt;state_dict和</h2>
+            <div class="post-date">2020-03-24</div>
             
-              <a class="tag" href="https://github.com/TLi347/TLi347.github.io/tag/ubD5axK98/">Gridea</a>
+            <div class="post-content">
+              <p>在 Pytorch 中一种模型保存和加载的方式如下:</p>
+<p>*# save<br>
+torch.save(model.state_dict(), PATH)</p>
+<h1 id="load">load</h1>
+<p>model = MyModel(*args, *<em>kwargs)<br>
+model.load_state_dict(torch.load(PATH))<br>
+model.eval()</em></p>
+<p>state_dict()其实返回的是一个OrderDict，存储了网络结构的名字和对应的参数</p>
+
+            </div>
             
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://github.com/TLi347/TLi347.github.io/post/xie-yu-yi-qing/">
+                  <h3 class="post-title">
+                    写于疫情
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
           </div>
+
         </div>
       </div>
     </div>

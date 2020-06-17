@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>StrokeNet  | TLi347</title>
+<meta name="description" content="I&#39;m a blog">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://github.com/TLi347/TLi347.github.io/favicon.ico?v=1592410586469">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://github.com/TLi347/TLi347.github.io/styles/main.css">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://github.com/TLi347/TLi347.github.io">
+        <img src="https://github.com/TLi347/TLi347.github.io/images/avatar.png?v=1592410586469" class="site-logo">
+        <h1 class="site-title">TLi347</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      I'm a blog
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://github.com/TLi347/TLi347.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">StrokeNet </h2>
+            <div class="post-date">2020-06-14</div>
+            
+            <div class="post-content">
+              <h3 id="strokenet中是如何训练agent的1024和256是如何对应上brush-coordinate和pressure">StrokeNet中是如何训练agent的？1024和256是如何对应上brush、coordinate和pressure？</h3>
+<h4 id="1-train_coord_encoder">1. train_coord_encoder:</h4>
+<p>CoordinateEncoder(brush): 2-&gt;1024-&gt;1*64*64<br>
+points, bitmap = CoordinateData()<br>
+pred = CoordinateEncoder.forward(points)<br>
+loss = MSE(bitmap, pred)</p>
+<h4 id="2-train_generator">2. train_generator:</h4>
+<p>StrokeGenerator: can generate an stroke image from data and points<br>
+images, data, points = Threebody(dataset_path, batch_size=32)<br>
+<span class='katex-error' title='ParseError: KaTeX parse error: Expected &#039;EOF&#039;, got &#039;#&#039; at position 1: #̲'>#</span> data={color，radius}, points={x,y,p}<br>
+output = StrokeGenerator(data, points)(256*256*1)<br>
+loss = MSE(images, output)<br>
+<span class='katex-error' title='ParseError: KaTeX parse error: Expected &#039;EOF&#039;, got &#039;#&#039; at position 1: #̲'>#</span> data: length*32*2-&gt;batch_size*1*64*64<br>
+<span class='katex-error' title='ParseError: KaTeX parse error: Expected &#039;EOF&#039;, got &#039;#&#039; at position 1: #̲'>#</span> points: length*batch_size*3-&gt; coord, pressure<br>
+<span class='katex-error' title='ParseError: KaTeX parse error: Expected &#039;EOF&#039;, got &#039;#&#039; at position 1: #̲'>#</span> coord: length*batch_size*2-(CoordinateEncoder)-&gt;length*batch_size*64*64 -*pressure-&gt;length*(batch_size-1)*64*64(each in {length} represents a segment of the stroke)<br>
+<span class='katex-error' title='ParseError: KaTeX parse error: Expected &#039;EOF&#039;, got &#039;#&#039; at position 1: #̲'>#</span> feature = cat(coord, data_feature)()</p>
+<h4 id="3-train_agent_mnist">3. train_agent_mnist:</h4>
+<p>Agent: can recover data and points from an image<br>
+renderer = Renderer('http://10.11.6.118:3000', size)<br>
+<span class='katex-error' title='ParseError: KaTeX parse error: Expected &#039;EOF&#039;, got &#039;#&#039; at position 1: #̲'>#</span><br>
+epoch in range(10)<br>
+images = data_loader(MNIST)<br>
+color_radius, action = agent(images)<br>
+<span class='katex-error' title='ParseError: KaTeX parse error: Expected &#039;EOF&#039;, got &#039;#&#039; at position 1: #̲'>#</span> AgentCNN: batch_size*1*256*256-&gt;batch_size*256*8*8-&gt;batch_size*16384<br>
+<span class='katex-error' title='ParseError: KaTeX parse error: Expected &#039;EOF&#039;, got &#039;#&#039; at position 1: #̲'>#</span> AgentFC: recover color_radius(color, radius), action=(coord, pressure) from input, which is output of AgentCNN<br>
+approx = StrokeGenerator(color_radius, action)<br>
+penalty = mse(action[:, 0:15], action[:, 1:16])<br>
+loss = MSE(images, approx) + penalty * LAMBDA</p>
+<h4 id="4-train_recurrent_agent_mnist">4. train_recurrent_agent_mnist</h4>
+<p>RecurrentGenerator<br>
+RecurrentAgent(256, 1, rg, 3)-&gt;1*256*256, 15*3<br>
+for epoch in range(10):<br>
+images = data_loader(MNIST)<br>
+approx, penalty = RecurrentAgent(images, regularizer=regularizer)<br>
+<span class='katex-error' title='ParseError: KaTeX parse error: Expected &#039;EOF&#039;, got &#039;#&#039; at position 1: #̲'>#</span></p>
+<p>存心时时可死，行事步步求生</p>
+
+            </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://github.com/TLi347/TLi347.github.io/post/painter/">
+                  <h3 class="post-title">
+                    Painter
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+  </body>
+</html>
