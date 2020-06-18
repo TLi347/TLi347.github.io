@@ -9,7 +9,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://github.com/TLi347/TLi347.github.io/favicon.ico?v=1592410586469">
+<link rel="shortcut icon" href="https://github.com/TLi347/TLi347.github.io/favicon.ico?v=1592431520049">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://github.com/TLi347/TLi347.github.io/styles/main.css">
 
@@ -30,7 +30,7 @@
   <div class="top-container" data-aos="fade-right">
     <div class="top-header-container">
       <a class="site-title-container" href="https://github.com/TLi347/TLi347.github.io">
-        <img src="https://github.com/TLi347/TLi347.github.io/images/avatar.png?v=1592410586469" class="site-logo">
+        <img src="https://github.com/TLi347/TLi347.github.io/images/avatar.png?v=1592431520049" class="site-logo">
         <h1 class="site-title">TLi347</h1>
       </a>
       <div class="menu-btn" @click="menuVisible = !menuVisible">
@@ -111,11 +111,35 @@ Q值的更新目标由Bellman方程定义，更新的方式可以有TD（Tempora
 <li><strong>在agent执行它的动作之前，它是否能对下一步的状态和回报做出预测，如果可以，那么就是model-based方法，如果不能，即为model-free方法</strong>（1. Model-based RL is a deductive approach for solving a problem. Agent uses its general understanding of the system to <em>derive</em> a best action. 2. Model-free RL is an inductive approach for solving a problem. Agent uses its past experience as empirical evidence and use frequency statistics to estimate the value of its action.）</li>
 </ul>
 <h6 id="2-we-cannot-train-a-good-performance-painting-agent-using-original-ddpg-because-its-hard-for-the-agent-to-model-the-complex-environment-well-that-is-composed-of-any-types-of-real-world-images-during-learning">2. We cannot train a good-performance painting agent using original DDPG because it’s hard for the agent to model the complex environment well that is composed of any types of real-world images during learning.</h6>
-</n>
-#### 为什么LTP中用了WGAN？WGAN是如何训练的？
-1. its great ability in measuring the distribution distance between the generated data and the target data.
-We want to reduce the differences between paintings and target images as much as possible. In experiments, we find rewards derived from D scores is better than L2 distance.
+<br />
+<h4 id="为什么ltp中用了wganwgan是如何训练的">为什么LTP中用了WGAN？WGAN是如何训练的？</h4>
+<h5 id="1-reasons">1. reasons</h5>
+<p>its great ability in measuring the distribution distance between the generated data and the target data.<br>
+We want to reduce the differences between paintings and target images as much as possible. In experiments, we find rewards derived from D scores is better than L2 distance.</p>
+<h5 id="2-wgan">2. WGAN</h5>
+<code>
+----- train netd -----
+<p>netd.zero_grad()<br>
+<span class='katex-error' title='ParseError: KaTeX parse error: Expected &#039;EOF&#039;, got &#039;#&#039; at position 1: #̲#'>##</span>train netD with real img<br>
+output=netD(input)<br>
+output.backward(one)<br>
+<span class='katex-error' title='ParseError: KaTeX parse error: Expected &#039;EOF&#039;, got &#039;#&#039; at position 1: #̲#'>##</span>train netD with fake img<br>
+fake_pic=netG(noise).detach()<br>
+output2=netD(fake_pic)<br>
+output2.backward(mone) #mone=-1*one<br>
+optimizerD.step()<br>
+</code><br>
+<code><br>
+------ train netg -------</p>
+<p>if (i+1)%5 ==0:<br>
+netg.zero_grad()<br>
+fake_pic=netG(noise)<br>
+output=netD(fake_pic)<br>
+output.backward(one)<br>
+optimizerG.step()<br>
+</code></p>
 <h4 id="为什么ltp中用了resnet_wobn">为什么LTP中用了ResNet_wobn?</h4>
+<p>ResNet_wobn 就是把ResNet中的BN和ReLU换成了WN和TReLU，为了加速训练，稳定学习过程。</p>
 <h4 id="什么是double-q-learning">什么是double Q-learning？</h4>
 <h4 id="where-can-improve">Where can improve?</h4>
 <p>TD3：Double Q-learning中的方法，使用一对独立的神经网络估计critic。但是这种方法虽然能解决bias问题，但是同时也会带来高方差。</p>

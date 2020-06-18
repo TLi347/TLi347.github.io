@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://github.com/TLi347/TLi347.github.io</id>
     <title>TLi347</title>
-    <updated>2020-06-17T16:19:05.588Z</updated>
+    <updated>2020-06-18T14:42:31.800Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://github.com/TLi347/TLi347.github.io"/>
     <link rel="self" href="https://github.com/TLi347/TLi347.github.io/atom.xml"/>
@@ -59,7 +59,7 @@ approx, penalty = RecurrentAgent(images, regularizer=regularizer)<br>
         <id>https://github.com/TLi347/TLi347.github.io/post/painter/</id>
         <link href="https://github.com/TLi347/TLi347.github.io/post/painter/">
         </link>
-        <updated>2020-06-08T20:36:02.000Z</updated>
+        <updated>2020-06-08T13:36:02.000Z</updated>
         <content type="html"><![CDATA[<h4 id="为什么learningtopainting中说model-based-ddpg但ddpg是model-free">为什么LearningToPainting中说model-based DDPG，但DDPG是model-free？</h4>
 <figure data-type="image" tabindex="1"><img src="https://github.com/TLi347/TLi347.github.io/post-images/1591825218434.png" alt="h" loading="lazy"></figure>
 <h6 id="1-model-free-rl-vs-model-based-rl">1. model-free RL vs model-based RL</h6>
@@ -75,11 +75,35 @@ Q值的更新目标由Bellman方程定义，更新的方式可以有TD（Tempora
 <li><strong>在agent执行它的动作之前，它是否能对下一步的状态和回报做出预测，如果可以，那么就是model-based方法，如果不能，即为model-free方法</strong>（1. Model-based RL is a deductive approach for solving a problem. Agent uses its general understanding of the system to <em>derive</em> a best action. 2. Model-free RL is an inductive approach for solving a problem. Agent uses its past experience as empirical evidence and use frequency statistics to estimate the value of its action.）</li>
 </ul>
 <h6 id="2-we-cannot-train-a-good-performance-painting-agent-using-original-ddpg-because-its-hard-for-the-agent-to-model-the-complex-environment-well-that-is-composed-of-any-types-of-real-world-images-during-learning">2. We cannot train a good-performance painting agent using original DDPG because it’s hard for the agent to model the complex environment well that is composed of any types of real-world images during learning.</h6>
-</n>
-#### 为什么LTP中用了WGAN？WGAN是如何训练的？
-1. its great ability in measuring the distribution distance between the generated data and the target data.
-We want to reduce the differences between paintings and target images as much as possible. In experiments, we find rewards derived from D scores is better than L2 distance.
+<br />
+<h4 id="为什么ltp中用了wganwgan是如何训练的">为什么LTP中用了WGAN？WGAN是如何训练的？</h4>
+<h5 id="1-reasons">1. reasons</h5>
+<p>its great ability in measuring the distribution distance between the generated data and the target data.<br>
+We want to reduce the differences between paintings and target images as much as possible. In experiments, we find rewards derived from D scores is better than L2 distance.</p>
+<h5 id="2-wgan">2. WGAN</h5>
+<code>
+----- train netd -----
+<p>netd.zero_grad()<br>
+<span class='katex-error' title='ParseError: KaTeX parse error: Expected &#039;EOF&#039;, got &#039;#&#039; at position 1: #̲#'>##</span>train netD with real img<br>
+output=netD(input)<br>
+output.backward(one)<br>
+<span class='katex-error' title='ParseError: KaTeX parse error: Expected &#039;EOF&#039;, got &#039;#&#039; at position 1: #̲#'>##</span>train netD with fake img<br>
+fake_pic=netG(noise).detach()<br>
+output2=netD(fake_pic)<br>
+output2.backward(mone) #mone=-1*one<br>
+optimizerD.step()<br>
+</code><br>
+<code><br>
+------ train netg -------</p>
+<p>if (i+1)%5 ==0:<br>
+netg.zero_grad()<br>
+fake_pic=netG(noise)<br>
+output=netD(fake_pic)<br>
+output.backward(one)<br>
+optimizerG.step()<br>
+</code></p>
 <h4 id="为什么ltp中用了resnet_wobn">为什么LTP中用了ResNet_wobn?</h4>
+<p>ResNet_wobn 就是把ResNet中的BN和ReLU换成了WN和TReLU，为了加速训练，稳定学习过程。</p>
 <h4 id="什么是double-q-learning">什么是double Q-learning？</h4>
 <h4 id="where-can-improve">Where can improve?</h4>
 <p>TD3：Double Q-learning中的方法，使用一对独立的神经网络估计critic。但是这种方法虽然能解决bias问题，但是同时也会带来高方差。</p>
@@ -106,7 +130,7 @@ model.eval()</em></p>
         <id>https://github.com/TLi347/TLi347.github.io/post/xie-yu-yi-qing/</id>
         <link href="https://github.com/TLi347/TLi347.github.io/post/xie-yu-yi-qing/">
         </link>
-        <updated>2020-03-18T10:04:45.000Z</updated>
+        <updated>2020-03-18T02:04:45.000Z</updated>
         <content type="html"><![CDATA[<p>你好，王世路：<br>
 很久没有联系你，不知你最近是否还好。想来你在国企工作，疫情对你的工作影响并不会很大。<br>
 因为疫情，我已经在家办公两周。真是一段混乱又平静的时间。<br>
@@ -116,10 +140,9 @@ model.eval()</em></p>
 在这里我认识到了很多不一样的更优秀的人，学习到了很多。我对于什么是研究，如何做研究有了完全不一样的理解。我还没有完全想明白这其中完整的思路，只知道应该从更宏观的角度先来看待方向，用数学思维抽象理解问题，未来应该会越来越清楚吧。同时我对自己原来的目标也产生了怀疑，不知道接下来该往哪去，也希望未来会有答案吧。<br>
 现在我最应该做的事，应该还是静心吧。太过急躁什么都会做不出来，得不到。很遗憾自己不是一个聪明人，对生活和工作中的很多问题思索不出来答案，也找不到方法。<br>
 但行好事，就是我现在对自己的期望。</p>
-<pre><code>  此致
-</code></pre>
-<p>敬礼</p>
-<pre><code>                                                                    李婷婷</code></pre>
+<p>此致<br>
+敬礼</p>
+<pre><code>                                                         李婷婷</code></pre>
 ]]></content>
     </entry>
     <entry>
